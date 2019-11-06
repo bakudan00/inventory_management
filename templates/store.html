@@ -1,0 +1,11 @@
+{% extends "_layout.html"%}
+{% block content %}
+<h1>Store</h1>
+<form action="{{ url_for('store_form')}}" method="POST">
+    <div class="form-group">
+        <label for="name">Store name:</label>
+        <input type="text" name="name" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Store</button>
+</form>
+{% endblock %}
