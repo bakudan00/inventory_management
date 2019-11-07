@@ -1,5 +1,5 @@
 import peeweedbevolve
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from models import db,Store,Warehouse,Product
 
 app = Flask(__name__)
@@ -38,7 +38,20 @@ def store_form():
 
 @app.route("/warehouse")
 def warehouse():
-    return render_template('warehouse.html')
+    store_m = Store.select()
+    return render_template('warehouse.html', store_m=store_m)
+
+@app.route("/warehouse_form", methods=["POST"])
+def warehouse_form():
+    store_m = Store.select()
+    store = Store.get_by_id(request.form['store_id'])
+    w = Warehouse(location=request.form['location'], store=store)
+    if w.save():
+        flash("succesfully saved!")
+        return redirect(url_for('warehouse'))
+    else:
+        flash("not success try again!")
+        return render_template('warehouse.html', store_m=store_m)
 
 if __name__ == '__main__':
     app.run()
