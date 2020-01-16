@@ -50,7 +50,7 @@ def warehouse_form():
         flash("succesfully saved!")
         return redirect(url_for('warehouse'))
     else:
-        flash("not success try again!")
+        flash("not success please try again!")
         return render_template('warehouse.html', store_m=store_m)
 
 if __name__ == '__main__':
